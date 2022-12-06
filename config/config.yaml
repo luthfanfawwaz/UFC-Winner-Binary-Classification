@@ -1,0 +1,82 @@
+# Path related
+dataset_raw_path: data/raw/ufc-master.csv
+dataset_cleaned_path: data/processed/ufc_cleaned.pkl
+csv_for_eda_path: data/processed/ufc_eda.csv
+train_set_path:
+- data/processed/x_train.pkl
+- data/processed/y_train.pkl
+valid_set_path:
+- data/processed/x_valid.pkl
+- data/processed/y_valid.pkl
+test_set_path:
+- data/processed/x_test.pkl
+- data/processed/y_test.pkl
+train_set_modelready_path:
+- data/processed/x_train_modelready.pkl
+- data/processed/y_train_modelready.pkl
+valid_set_modelready_path:
+- data/processed/x_valid_modelready.pkl
+- data/processed/y_valid_modelready.pkl
+test_set_modelready_path:
+- data/processed/x_test_modelready.pkl
+- data/processed/y_test_modelready.pkl
+production_model_path: models/production_model.pkl
+scaler_path: models/preprocessor/scaler/scaler.pkl
+pca_path: models/preprocessor/pca/pca.pkl
+training_log_path: log/training_log.json
+
+# Debug related
+print_debug: true
+
+# Predictors and label related
+target: Winner
+predictors:
+- lose_streak_dif
+- win_streak_dif
+- longest_win_streak_dif
+- win_dif
+- loss_dif
+- total_round_dif
+- total_title_bout_dif
+- ko_dif
+- sub_dif
+- height_dif
+- reach_dif
+- age_dif
+
+# Columns by data type related
+float_columns:
+- height_dif
+- reach_dif
+int_columns:
+- lose_streak_dif
+- win_streak_dif
+- longest_win_streak_dif
+- win_dif
+- loss_dif
+- total_round_dif
+- total_title_bout_dif
+- ko_dif
+- sub_dif
+- age_dif
+- Winner
+
+# Splitting related
+test_size: 0.3 # test+valid ratio to whole dataset
+valid_size: 0.5 # valid ratio to test+valid 
+
+# EDA in tableau
+eda_in_tableau_path:
+- assets/eda_in_tableau/Sheet 1.png
+- assets/eda_in_tableau/Sheet 2 (1).png
+- assets/eda_in_tableau/Sheet 2 (2).png
+- assets/eda_in_tableau/Sheet 2 (3).png
+- assets/eda_in_tableau/Sheet 2 (4).png
+- assets/eda_in_tableau/Sheet 2 (5).png
+- assets/eda_in_tableau/Sheet 2 (6).png
+- assets/eda_in_tableau/Sheet 2 (7).png
+- assets/eda_in_tableau/Sheet 2 (8).png
+- assets/eda_in_tableau/Sheet 2 (9).png
+- assets/eda_in_tableau/Sheet 2 (10).png
+- assets/eda_in_tableau/Sheet 2 (11).png
+- assets/eda_in_tableau/Sheet 2 (12).png
