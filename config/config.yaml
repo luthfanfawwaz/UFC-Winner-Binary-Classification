@@ -21,7 +21,12 @@ test_set_modelready_path:
 - data/processed/x_test_modelready.pkl
 - data/processed/y_test_modelready.pkl
 production_model_path: models/production_model.pkl
-scaler_path: models/preprocessor/scaler/scaler.pkl
+label_encoder_path: models/preprocessor/label_encoder.pkl
+ordinal_encoder_path:
+- models/preprocessor/oe_predefined.pkl
+- models/preprocessor/oe_auto.pkl
+imputer_path: models/preprocessor/imputer.pkl
+scaler_path: models/preprocessor/scaler.pkl
 pca_path: models/preprocessor/pca/pca.pkl
 training_log_path: log/training_log.json
 
@@ -31,35 +36,26 @@ print_debug: true
 # Predictors and label related
 target: Winner
 predictors:
-- lose_streak_dif
-- win_streak_dif
-- longest_win_streak_dif
-- win_dif
-- loss_dif
-- total_round_dif
-- total_title_bout_dif
-- ko_dif
-- sub_dif
-- height_dif
-- reach_dif
-- age_dif
-
-# Columns by data type related
-float_columns:
-- height_dif
-- reach_dif
-int_columns:
-- lose_streak_dif
-- win_streak_dif
-- longest_win_streak_dif
-- win_dif
-- loss_dif
-- total_round_dif
-- total_title_bout_dif
-- ko_dif
-- sub_dif
-- age_dif
-- Winner
+- R_odds
+- B_odds
+- R_ev
+- B_ev
+- gender
+- B_current_lose_streak
+- B_avg_TD_pct
+- R_avg_SIG_STR_pct
+- R_win_by_Decision_Majority
+- R_win_by_Decision_Unanimous
+- avg_sub_att_dif
+- avg_td_dif
+- R_Women's Strawweight_rank
+- R_Welterweight_rank
+- B_Bantamweight_rank
+- r_dec_odds
+- b_dec_odds
+- b_sub_odds
+- r_ko_odds
+- b_ko_odds
 
 # Splitting related
 test_size: 0.3 # test+valid ratio to whole dataset
