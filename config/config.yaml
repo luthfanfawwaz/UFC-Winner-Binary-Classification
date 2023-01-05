@@ -59,7 +59,6 @@ int_columns:
 - ko_dif
 - sub_dif
 - age_dif
-- Winner
 
 # Splitting related
 test_size: 0.3 # test+valid ratio to whole dataset

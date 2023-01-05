@@ -4,15 +4,26 @@ import uvicorn
 import pandas as pd
 import numpy as np
 import util as utils
+from data_preprocessing import scale_transform
 
 config = utils.load_config()
 model_data = utils.pickle_load(config["production_model_path"])
+scaler = utils.pickle_load(config["scaler_path"])
 
 # test using several feature
 class api_data(BaseModel):
-    Red_odds: float
-    Blue_odds: float
-    Gender: str
+    lose_streak_dif:int
+    win_streak_dif:int
+    longest_win_streak_dif:int
+    win_dif:int
+    loss_dif:int
+    total_round_dif:int
+    total_title_bout_dif:int
+    ko_dif:int
+    sub_dif:int
+    height_dif:float
+    reach_dif:float
+    age_dif:int
 
 app = FastAPI()
 
@@ -20,36 +31,39 @@ app = FastAPI()
 def home():
     return "Hello, FastAPI up!"
 
-# @app.post("/predict/")
-# def predict(data: api_data):    
-#     # Convert data api to dataframe
-#     preds = config["predictors"]
-#     data = pd.DataFrame(data).set_index(0).T.reset_index(drop = True)  # type: ignore
-#     data.columns = preds
+@app.post("/predict/")
+def predict(data: api_data):
 
-#     # Convert dtype
-#     data = pd.concat(
-#         [
-#             data[config["predictors"][:4]].astype(np.float64),  # type: ignore
-#             data[config["predictors"][4:]].astype(np.int64)  # type: ignore
-#         ],
-#         axis = 1
-#     )
+    # Convert data api to dataframe
+    preds = config["predictors"]
+    data = pd.DataFrame(data).set_index(0).T.reset_index(drop = True)
+    data.columns = preds
 
-#     # Check range data
-#     try:
-#         data_pipeline.check_data(data, config, True)  # type: ignore
-#     except AssertionError as ae:
-#         return {"res": [], "error_msg": str(ae)}
+    # Convert dtype
+    data = pd.concat(
+        [
+            data[config["float_columns"]].astype(np.float64),  # type: ignore
+            data[config["int_columns"]].astype(np.int64)  # type: ignore
+        ],
+        axis = 1
+    )
 
-#     # Predict data
-#     y_pred = model_data.predict(data)
+    # Scale the data
+    data = scale_transform(df=data,
+                           scaler=scaler,
+                           preds=preds)
 
-#     if y_pred[0] == 0:
-#         y_pred = "Tidak ada api."
-#     else:
-#         y_pred = "Ada api."
-#     return {"res" : y_pred, "error_msg": ""}
+    # Predict data
+    y_pred = model_data.predict(data)
+
+    print(type(y_pred))
+    print(y_pred)
+    if y_pred[0] == 0:
+        y_pred = "Biru Menang."
+    else:
+        y_pred = "Merah Menang."
+    return {"res" : y_pred, "error_msg": ""}
 
 if __name__ == "__main__":
-    uvicorn.run("api:app", host = "127.0.0.1", port = 8080)
+    uvicorn.run("api:app", host = "localhost", port = 8080, reload=True)
+
