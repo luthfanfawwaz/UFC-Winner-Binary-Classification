@@ -65,5 +65,5 @@ def predict(data: api_data):
     return {"res" : y_pred, "error_msg": ""}
 
 if __name__ == "__main__":
-    uvicorn.run("api:app", host = "localhost", port = 8080, reload=True)
+    uvicorn.run("api:app", host = "0.0.0.0", port = 8080, reload=True)
 

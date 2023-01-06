@@ -1,0 +1,16 @@
+# MLP_final_project\src\api.py: 1
+fastapi==0.88.0
+# MLP_final_project\data_prepocessing.ipynb: 4
+imbalanced-learn==0.9.1
+# MLP_final_project\src\util.py: 2
+joblib==1.1.0
+# MLP_final_project\src\api.py: 5
+numpy==1.20.3
+# MLP_final_project\src\api.py: 4
+pandas==1.4.2
+# MLP_final_project\src\api.py: 2
+pydantic==1.10.2
+# MLP_final_project\src\util.py: 1
+PyYAML==6.0
+# MLP_final_project\src\api.py: 3
+uvicorn==0.20.0

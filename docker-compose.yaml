@@ -1,0 +1,20 @@
+name: ufc_winner_prediction
+services:
+  streamlit:
+    build: docker/streamlit
+    image: luthfanfawwaz/ufc_fe
+    container_name: streamlit_fe
+    depends_on:
+      - api
+    ports:
+      - 8501:8501
+    volumes:
+      - ./:/home/
+  api:
+    build: docker/api
+    image: luthfanfawwaz/ufc_be
+    container_name: fastapi_be
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/home/

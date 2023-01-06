@@ -1,0 +1,6 @@
+# MLP_final_project\src\streamlit.py: 3
+Pillow==8.2.0
+# MLP_final_project\src\streamlit.py: 2
+requests==2.28.1
+# MLP_final_project\src\streamlit.py: 1
+streamlit==1.16.0
