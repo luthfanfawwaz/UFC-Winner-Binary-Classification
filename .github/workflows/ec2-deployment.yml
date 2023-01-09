@@ -43,5 +43,5 @@ jobs:
         ssh ec2_fpws "rm -rf temp/"
         ssh ec2_fpws "cd ufc_winner_prediction/"
         ssh ec2_fpws "cd ufc_winner_prediction/ && sudo docker compose rm -sf"
-        ssh ec2_fpws "cd ufc_winner_prediction/ && sudo docker rmi luthfanfawwaz/ufc_fe && sudo docker rmi luthfanfawwaz/ufc_be"
+        ssh ec2_fpws "cd ufc_winner_prediction/ && sudo docker rmi luthfanfawwaz/ufc_fe ; sudo docker rmi luthfanfawwaz/ufc_be ; echo "docker images removed""
         ssh ec2_fpws "cd ufc_winner_prediction/ && sudo docker compose pull && sudo docker compose up -d"
