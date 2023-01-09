@@ -1,0 +1,47 @@
+name: EC2 Deployment
+
+on:
+  workflow_run:
+    workflows: [ Docker Integration ]
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+jobs:
+  ec2-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Create SSH Configuration File
+      env:
+        EC2_USER: ${{ secrets.EC2_USER }}
+        EC2_KEY: ${{ secrets.EC2_KEY }}
+        EC2_HOST: ${{ secrets.EC2_HOSTNAME }}
+        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$EC2_KEY" > ~/.ssh/deployment.pem
+        chmod 700 ~/.ssh/deployment.pem
+        cat >> ~/.ssh/config <<END
+        Host ec2_fpws
+          HostName $EC2_HOSTNAME
+          User $EC2_USER
+          IdentityFile ~/.ssh/deployment.pem
+          StrictHostKeyChecking no
+        END
+
+    - name: Deploy to EC2
+      run: |
+        ssh ec2_fpws "mkdir temp/"
+        ssh ec2_fpws "git clone git@github.com:luthfanfawwaz/UFC-Winner-Binary-Classification.git temp/"
+        ssh ec2_fpws "rsync -a ./temp/ ./ufc_winner_prediction/"
+        ssh ec2_fpws "rm -rf temp/"
+        ssh ec2_fpws "cd ufc_winner_prediction/"
+        ssh ec2_fpws "cd ufc_winner_prediction/ && sudo docker compose rm -sf api && sudo docker compose rm -sf streamlit"
+        ssh ec2_fpws "cd ufc_winner_prediction/ && sudo docker rmi luthfanfawwaz/ufc_fe && sudo docker rmi luthfanfawwaz/ufc_be"
+        ssh ec2_fpws "cd ufc_winner_prediction/ && sudo docker compose pull && sudo docker compose up -d"

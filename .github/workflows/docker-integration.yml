@@ -1,0 +1,32 @@
+name: Docker Integration
+
+on:
+  push:
+    branches: [ master ]
+
+permissions:
+  contents: read
+
+jobs:
+  docker-build-push:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Python Setup
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.9.5"
+
+    - name: Docker Login
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Docker Compose Build and Push
+      run: |
+        docker compose build --no-cache
+        docker compose push
