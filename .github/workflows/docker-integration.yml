@@ -3,6 +3,11 @@ name: Docker Integration
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'docker/**'
+      - 'models/production_model.pkl'
+      - 'src/**.py'
+      - 'docker-compose.yaml'
 
 permissions:
   contents: read
