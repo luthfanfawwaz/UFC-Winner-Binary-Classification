@@ -115,4 +115,4 @@ flowchart LR;
 
 ## Improvements
 
-- Better features, possibly if there is a way to validly metricise mental it would be a great addition to our feature set according to this [paper](https://www.atlantis-press.com/proceedings/acpes-19/125921420).
+- Better features, possibly if there is a way to validly metricise mental aspect of a fighter it would be a great addition to our feature set according to this [paper](https://www.atlantis-press.com/proceedings/acpes-19/125921420).
